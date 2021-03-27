@@ -9,6 +9,7 @@ class HumanPlayer(PlayerAbs):
     def make_move_1(self, word: [str], alphabet: [str], word_analisys: dict, separator: str):
         position = 0
         print("Aktualne słowo: " + ato_word_to_string(word, sep=separator))
+        print(f"Alfabet: {flatten_list_of_strings(alphabet, ',')}")
         print(f"Wybierz pozycję ({0}-{len(word)}):")
         pos = pick_int(0, len(word) + 1)
 
@@ -18,8 +19,7 @@ class HumanPlayer(PlayerAbs):
         print("Aktualne słowo: " + ato_word_to_string(word, marker=position, sep=separator))
 
         while True:
-            # TODO Tu jakiś flatten może by się nadał (trzeba zmienić tak czy siak)
-            print(f"Wybierz literę ({ato_word_to_string(alphabet, sep='|')}):")
+            print(f"Wybierz literę ({flatten_list_of_strings(alphabet, ',')}):")
             letter = input()
 
             if letter in alphabet:

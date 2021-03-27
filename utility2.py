@@ -4,20 +4,29 @@ from os import name, system
 short_sep = "-----------"
 long_sep = 3 * short_sep
 
-# TODO To nie wygląda dobrze dla alfabetów ze znakami o większej długości
 def ato_word_to_string(word: [str], marker: int = -1, sep:str = "") -> str:
     result = ""
 
     for i in range(len(word)):
         if marker == i:
-            result += "_"
+            result += sep + "_" + sep
         else:
             result += sep
         result += word[i]
     if marker == len(word):
-        result += "_"
+        result += sep + "_" + sep
     else:
         result += sep
+
+    return result
+
+def flatten_list_of_strings(list: [str], separator: str) -> str:
+    result = ""
+
+    for i in range(0, len(list)):
+        result += list[i]
+        if i != len(list) - 1:
+            result += separator
 
     return result
 

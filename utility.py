@@ -6,7 +6,7 @@ from collections import *
 pl_dict = { "1": ["Człowiek", type(HumanPlayer)],
             "2": ["Komputer losowy", type(PlayerRng)]}
 
-
+# TODO zunifikować utility
 
 def pick_option(opt_dictionary: dict):
     while True:
@@ -19,9 +19,6 @@ def pick_option(opt_dictionary: dict):
             return opt_dictionary[option][1]
         else:
             print("Niepoprawna opcja")
-
-# def get_player() -> AbsPlayer:
-#     pass
 
 def analyse_word(word:[str]) -> (bool, dict): # zwraca czy słowo ma powtórzenie
     result = False

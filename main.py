@@ -24,13 +24,15 @@ while True:
         print("Wybierz ustawienia gry")
         print(long_sep)
         ato = AtoGame()
-        ato.set_parameters()
+        ato.set_gamemode_parameters()
         clear()
         ato.print_parameters()
         print(short_sep)
 
         odict = { "1": ["Zatwierdź ustawienia i graj", "GR"],
-                  "2": ["Zmień ustawienia gry", "G"]}
+                  "2": ["Zmień ustawienia gry", "G"],
+                  "9": ["Zmień tryb aplikacji", ""],
+                  "0": ["Wyjdź z aplikacji", "E"]}
         print("Czy gra jest gotowa?")
         state = pick_option(odict)
 
@@ -42,28 +44,26 @@ while True:
 
         odict = { "1": ["Zagraj jeszcze raz", "GR"],
                   "2": ["Zmień ustawienia gry", "G"],
-                  "3": ["Zmień tryb aplikacji", ""],
+                  "9": ["Zmień tryb aplikacji", ""],
                   "0": ["Wyjdź z aplikacji", "E"]}
         state = pick_option(odict)
 
     if state == "T":
-        print("¯\_(ツ)_/¯ not here yet ¯\_(ツ)_/¯")
-        _ = input("Click enter to continue")
         state = ""
-        # tester = AtoTester()
-        # tester.set_parameters()
-        #
-        # state += "R"
+        tester = AtoTester()
+        tester.set_parameters()
 
-    # if state == "TR":
-        # tester.run()
-        # tester.print_results()
-        #
-        # odict = { "1": ["Powtórz testy", "TR"],
-        #           "2": ["Zmień parametry testów", "T"],
-        #           "3": ["Zmień tryb aplikacji", ""],
-        #           "0": ["Wyjdź z aplikacji", "E"]}
-        # state = pick_option(odict)
+        state += "R"
+
+    if state == "TR":
+        tester.run()
+        tester.print_results()
+
+        odict = { "1": ["Powtórz testy", "TR"],
+                  "2": ["Zmień parametry testów", "T"],
+                  "3": ["Zmień tryb aplikacji", ""],
+                  "0": ["Wyjdź z aplikacji", "E"]}
+        state = pick_option(odict)
 
     if state == "E":
         break
