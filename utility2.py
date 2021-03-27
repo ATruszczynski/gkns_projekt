@@ -1,6 +1,10 @@
 import math
 from os import name, system
 
+short_sep = "-----------"
+long_sep = 3 * short_sep
+
+# TODO To nie wygląda dobrze dla alfabetów ze znakami o większej długości
 def ato_word_to_string(word: [str], marker: int = -1, sep:str = "") -> str:
     result = ""
 
