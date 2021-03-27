@@ -1,0 +1,2 @@
+class PlayerAbs:
+    pass
