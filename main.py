@@ -49,21 +49,64 @@ while True:
         state = pick_option(odict)
 
     if state == "T":
-        state = ""
         tester = AtoTester()
-        tester.set_parameters()
 
-        state += "R"
+        odict = { "1": ["Dodaj nastepny test", "TP"],
+                  "9": ["Zmień tryb aplikacji", ""],
+                  "0": ["Wyjdź z aplikacji", "E"]}
+        state = pick_option(odict)
+
+    if state == "TP":
+        clear()
+        tester.add_test()
+
+        odict = { "1": ["Dodaj nastepny test", "TP"],
+                  "2": ["Zresetuj listę testów", "T"],
+                  "3": ["Wykonaj testy", "TR"],
+                  "4": ["Pokaż listę testów", "TL"],
+                  "9": ["Zmień tryb aplikacji", ""],
+                  "0": ["Wyjdź z aplikacji", "E"]}
+        state = pick_option(odict)
+
+    if state == "TL":
+        tester.print_parameters()
+
+        odict = { "1": ["Dodaj nastepny test", "TP"],
+                  "2": ["Zresetuj listę testów", "T"],
+                  "3": ["Wykonaj testy", "TR"],
+                  "9": ["Zmień tryb aplikacji", ""],
+                  "0": ["Wyjdź z aplikacji", "E"]}
+        state = pick_option(odict)
 
     if state == "TR":
         tester.run()
+
         tester.print_results()
 
-        odict = { "1": ["Powtórz testy", "TR"],
-                  "2": ["Zmień parametry testów", "T"],
-                  "3": ["Zmień tryb aplikacji", ""],
+        tester.save_results()
+
+        odict = { "1": ["Przeprowadź testy jeszcze raz", "TR"],
+                  "2": ["Przeprowadź nowe testy", "T"],
+                  "9": ["Zmień tryb aplikacji", ""],
                   "0": ["Wyjdź z aplikacji", "E"]}
         state = pick_option(odict)
+
+    # if state == "T":
+    #     state = ""
+    #     tester = AtoTester()
+    #     tester.set_parameters()
+    #
+    #     state += "R"
+    #
+    # if state == "TR":
+    #     tester.run()
+    #     tester.print_results()
+    #
+    #     odict = { "1": ["Powtórz testy", "TR"],
+    #               "2": ["Zmień parametry testów", "T"],
+    #               "3": ["Zmień tryb aplikacji", ""],
+    #               "0": ["Wyjdź z aplikacji", "E"]}
+    #     state = pick_option(odict)
 
     if state == "E":
         break

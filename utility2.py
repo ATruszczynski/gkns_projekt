@@ -24,7 +24,7 @@ def flatten_list_of_strings(list: [str], separator: str) -> str:
     result = ""
 
     for i in range(0, len(list)):
-        result += list[i]
+        result += str(list[i])
         if i != len(list) - 1:
             result += separator
 

@@ -8,8 +8,8 @@ pl_dict_testmode = {}
 
 i = 1
 for pl in computer_player_list:
-    pl_dict_gamemode[i+1] = pl
-    pl_dict_testmode[i] = pl
+    pl_dict_gamemode[str(i+1)] = pl
+    pl_dict_testmode[str(i)] = pl
 
 del_dict = {"1": ["Nie", False],
             "2": ["Tak", True]}
@@ -80,18 +80,18 @@ class AtoGame:
         self.p2 = pick_option(pl_dict)()
 
 
-    def print_parameters(self):
-        print(f"Parametry gry: \nLiczność alfabetu: {self.alph_count} | Maks. dł. słowa: {self.word_length} | \nGracz 1: {self.p1.to_string()} | Gracz 2: {self.p2.to_string()}")
+    def print_parameters(self, end = "\n"):
+        print(f"Parametry gry: \nLiczność alfabetu: {self.alph_count} | Maks. dł. słowa: {self.word_length} | \nGracz 1: {self.p1.to_string()} | Gracz 2: {self.p2.to_string()}", end=end)
 
     def play(self):
         self.word = []
         # self.move = 0
-        self.log = "|"
+        self.log = []
         word_analisys = {}
         self.winner = -1
 
         while True:
-            # TODO opcja wyrzucenia wizulanych rzeczy
+            # TODO log jest stringiem więc jego długość nie jest dobra
             if self.gamemode:
                 clear()
             if len(self.word) != 0:
@@ -101,12 +101,13 @@ class AtoGame:
                         _ = input("(enter żeby gracz wykonał ruch)")
 
                 move1 = self.p1.make_move_1(self.word, self.alphabet, word_analisys, self.separator)
-                self.log += f"{move1}|"
 
                 # if self.gamemode:
                 #     print(ato_word_to_string(word=self.word, marker=move1, sep=self.separator))
             else:
                 move1 = 0
+
+            self.log.append(move1)
 
             if self.gamemode:
                 clear()
@@ -116,10 +117,13 @@ class AtoGame:
 
             move2 = self.p2.make_move_2(self.word, self.alphabet, position=move1, word_analisys=word_analisys, separator=self.separator)
 
-            self.log += f"{move2}|"
+            self.log.append(move2)
             self.word.insert(move1, move2)
 
             is_rep, self.repetition, word_analisys = analyse_word(self.word)
+
+            if len(self.log) > 2 * self.word_length:
+                ori = 1
 
             if is_rep:
                 self.winner = 1
@@ -135,4 +139,4 @@ class AtoGame:
             print(f"Gracz 2 wygrywa. Słowo '{ato_word_to_string(self.word, sep=self.separator)}' ma długość {self.word_length} i nie zawiera powtórzeń.")
 
         print(short_sep)
-        print(f"Kolejne ruchy: {self.log}")
+        print(f"Kolejne ruchy: {flatten_list_of_strings(self.log, ',')}")
