@@ -1,25 +1,37 @@
-from ato_game import *
 from ato_tester import *
 from utility import *
-from player_human import *
+from players.player_human import *
 
-state = ""
 desc = "description"
 end_state = "end state"
 
-# state = "G"
+# state = GAME_PREPARE
+
+MAIN_MENU = "AAA"
+GAME_PREPARE = "BBB"
+GAME_READY = "fff"
+TESTS_EMPTY = "CCC"
+TESTS_ADD = "DDD"
+# TESTS_ADD = "DASDA"
+TESTS_LIST = "ggg"
+TESTS_RUN = "EEE"
+TESTS_DONE = "FFF"
+TESTS_SAVE = "FADSFE"
+EXIT = "GGG"
+
+state = MAIN_MENU
 
 while True:
     # wybór trybu obsługi
-    if state == "":
+    if state == MAIN_MENU:
         clear()
         print("Wybierz tryb aplikacji:")
-        odict = { "1": ["Tryb rozgrywki", "G"],
-                  "2": ["Tryb testowy", "T"],
-                  "0": ["Zamknij aplikację", "E"]}
+        odict = { "1": ["Tryb rozgrywki", GAME_PREPARE],
+                  "2": ["Tryb testowy", TESTS_EMPTY],
+                  "0": ["Zamknij aplikację", EXIT]}
         state = pick_option(odict)
 
-    if state == "G":
+    if state == GAME_PREPARE:
         clear()
         print("Wybierz ustawienia gry")
         print(long_sep)
@@ -29,86 +41,88 @@ while True:
         ato.print_parameters()
         print(short_sep)
 
-        odict = { "1": ["Zatwierdź ustawienia i graj", "GR"],
-                  "2": ["Zmień ustawienia gry", "G"],
-                  "9": ["Zmień tryb aplikacji", ""],
-                  "0": ["Wyjdź z aplikacji", "E"]}
+        odict = { "1": ["Zatwierdź ustawienia i graj", GAME_READY],
+                  "2": ["Zmień ustawienia gry", GAME_PREPARE],
+                  "9": ["Zmień tryb aplikacji", MAIN_MENU],
+                  "0": ["Wyjdź z aplikacji", EXIT]}
         print("Czy gra jest gotowa?")
         state = pick_option(odict)
 
-    if state == "GR":
+    if state == GAME_READY:
         ato.play()
         clear()
         ato.print_result()
         print(short_sep)
 
-        odict = { "1": ["Zagraj jeszcze raz", "GR"],
-                  "2": ["Zmień ustawienia gry", "G"],
-                  "9": ["Zmień tryb aplikacji", ""],
-                  "0": ["Wyjdź z aplikacji", "E"]}
+        odict = { "1": ["Zagraj jeszcze raz", GAME_READY],
+                  "2": ["Zmień ustawienia gry", GAME_PREPARE],
+                  "9": ["Zmień tryb aplikacji", MAIN_MENU],
+                  "0": ["Wyjdź z aplikacji", EXIT]}
         state = pick_option(odict)
 
-    if state == "T":
+    if state == TESTS_EMPTY:
+        clear()
         tester = AtoTester()
 
-        odict = { "1": ["Dodaj nastepny test", "TP"],
-                  "9": ["Zmień tryb aplikacji", ""],
-                  "0": ["Wyjdź z aplikacji", "E"]}
+        odict = { "1": ["Dodaj nastepny test", TESTS_ADD],
+                  "9": ["Zmień tryb aplikacji", MAIN_MENU],
+                  "0": ["Wyjdź z aplikacji", EXIT]}
         state = pick_option(odict)
 
-    if state == "TP":
+    if state == TESTS_ADD:
         clear()
         tester.add_test()
+        clear()
 
-        odict = { "1": ["Dodaj nastepny test", "TP"],
-                  "2": ["Zresetuj listę testów", "T"],
-                  "3": ["Wykonaj testy", "TR"],
-                  "4": ["Pokaż listę testów", "TL"],
-                  "9": ["Zmień tryb aplikacji", ""],
-                  "0": ["Wyjdź z aplikacji", "E"]}
+        odict = { "1": ["Dodaj nastepny test", TESTS_ADD],
+                  "2": ["Zresetuj listę testów", TESTS_EMPTY],
+                  "3": ["Wykonaj testy", TESTS_RUN],
+                  "4": ["Pokaż listę testów", TESTS_LIST],
+                  "9": ["Zmień tryb aplikacji", MAIN_MENU],
+                  "0": ["Wyjdź z aplikacji", EXIT]}
         state = pick_option(odict)
 
-    if state == "TL":
+    if state == TESTS_LIST:
+        clear()
         tester.print_parameters()
 
-        odict = { "1": ["Dodaj nastepny test", "TP"],
-                  "2": ["Zresetuj listę testów", "T"],
-                  "3": ["Wykonaj testy", "TR"],
-                  "9": ["Zmień tryb aplikacji", ""],
-                  "0": ["Wyjdź z aplikacji", "E"]}
+        odict = { "1": ["Dodaj nastepny test", TESTS_ADD],
+                  "2": ["Zresetuj listę testów", TESTS_EMPTY],
+                  "3": ["Wykonaj testy", TESTS_RUN],
+                  "9": ["Zmień tryb aplikacji", MAIN_MENU],
+                  "0": ["Wyjdź z aplikacji", EXIT]}
         state = pick_option(odict)
 
-    if state == "TR":
+    if state == TESTS_RUN:
+        clear()
         tester.run()
-
+        clear()
         tester.print_results()
 
-        tester.save_results()
-
-        odict = { "1": ["Przeprowadź testy jeszcze raz", "TR"],
-                  "2": ["Przeprowadź nowe testy", "T"],
-                  "9": ["Zmień tryb aplikacji", ""],
-                  "0": ["Wyjdź z aplikacji", "E"]}
+        odict = { "1": ["Przeprowadź testy jeszcze raz", TESTS_RUN],
+                  "2": ["Przeprowadź nowe testy", TESTS_EMPTY],
+                  "3": ["Zapisz wyniki", TESTS_SAVE],
+                  "9": ["Zmień tryb aplikacji", MAIN_MENU],
+                  "0": ["Wyjdź z aplikacji", EXIT]}
         state = pick_option(odict)
 
-    # if state == "T":
-    #     state = ""
-    #     tester = AtoTester()
-    #     tester.set_parameters()
-    #
-    #     state += "R"
-    #
-    # if state == "TR":
-    #     tester.run()
-    #     tester.print_results()
-    #
-    #     odict = { "1": ["Powtórz testy", "TR"],
-    #               "2": ["Zmień parametry testów", "T"],
-    #               "3": ["Zmień tryb aplikacji", ""],
-    #               "0": ["Wyjdź z aplikacji", "E"]}
-    #     state = pick_option(odict)
+    if state == TESTS_SAVE:
+        clear()
+        print("Jak chcesz zapisać testy?")
+        choice_dict = { "1": ["Zapisz parametry i wyniki gier testowych", False],
+                        "2": ["Zapisz parametry, wyniki i historie gier testowych", True]}
 
-    if state == "E":
+        choice = pick_option(choice_dict)
+
+        tester.save_results(history=choice)
+
+        odict = { "1": ["Przeprowadź testy jeszcze raz", TESTS_RUN],
+                  "2": ["Przeprowadź nowe testy", TESTS_EMPTY],
+                  "9": ["Zmień tryb aplikacji", MAIN_MENU],
+                  "0": ["Wyjdź z aplikacji", EXIT]}
+        state = pick_option(odict)
+
+    if state == EXIT:
         break
 
 desc = "description"

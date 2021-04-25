@@ -1,6 +1,5 @@
-import player_abs
-from player_rng import *
-from player_human import *
+from players.player_rng import *
+from players.player_human import *
 from collections import *
 
 pl_dict = { "1": ["Człowiek", type(HumanPlayer)],

@@ -10,6 +10,7 @@ i = 1
 for pl in computer_player_list:
     pl_dict_gamemode[str(i+1)] = pl
     pl_dict_testmode[str(i)] = pl
+    i = i + 1
 
 del_dict = {"1": ["Nie", False],
             "2": ["Tak", True]}
@@ -78,7 +79,6 @@ class AtoGame:
 
         print("Wybierz gracza 2:")
         self.p2 = pick_option(pl_dict)()
-
 
     def print_parameters(self, end = "\n"):
         print(f"Parametry gry: \nLiczność alfabetu: {self.alph_count} | Maks. dł. słowa: {self.word_length} | \nGracz 1: {self.p1.to_string()} | Gracz 2: {self.p2.to_string()}", end=end)

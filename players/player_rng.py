@@ -1,4 +1,4 @@
-from player_abs import *
+from players.player_abs import *
 import random
 
 class PlayerRng(PlayerAbs):

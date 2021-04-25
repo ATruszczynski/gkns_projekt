@@ -28,7 +28,7 @@ class AtoTester:
         print(long_sep)
 
         for t in self.tests:
-            t[0].print_parameters(end=". ")
+            t[0].print_parameters(end=" | ")
             print(f"Powtórzenia: {t[1]}")
             print(short_sep)
 
@@ -54,12 +54,14 @@ class AtoTester:
         now = datetime.datetime.now()
         file = open(f"{test_dir}{os.path.sep}tests_{now.year}_{now.month}_{now.day}_{now.hour}_{now.minute}_{now.second}.csv", "w")
 
-
+        history = True #TODO remove
+        # TODO tego się chyba nie da wywołać z history = TRUE
         file.write("player_1,player_2,alph_count,word_len,game_len,winner")
         if history:
             file.write(",final_word,log")
         file.write("\n")
         for tr in self.test_records:
             file.write(f"{tr[0]},{tr[1]},{tr[2]},{tr[3]},{tr[4]},{tr[5]}")
-            file.write(f",{tr[6]},{tr[7]}")
+            if history:
+                file.write(f",{tr[6]},{tr[7]}")
             file.write("\n")

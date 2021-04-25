@@ -1,4 +1,4 @@
-from player_abs import *
+from players.player_abs import *
 from utility2 import *
 
 class HumanPlayer(PlayerAbs):
@@ -9,6 +9,7 @@ class HumanPlayer(PlayerAbs):
     def make_move_1(self, word: [str], alphabet: [str], word_analisys: dict, separator: str):
         position = 0
         print("Aktualne słowo: " + ato_word_to_string(word, sep=separator))
+        print(short_sep)
         print(f"Alfabet: {flatten_list_of_strings(alphabet, ',')}")
         print(f"Wybierz pozycję ({0}-{len(word)}):")
         pos = pick_int(0, len(word) + 1)
