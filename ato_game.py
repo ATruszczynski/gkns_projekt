@@ -1,7 +1,9 @@
 from utility import *
 from utility2 import *
 
-computer_player_list = [["Komputer losowy", PlayerRng]]
+computer_player_list = [["Komputer losowy", PlayerRng],
+                        ["Komputer heurystyka ilości ruchów", PlayerMoveHeu]
+                        ]
 
 pl_dict_gamemode = {"1": ["Człowiek", HumanPlayer]}
 pl_dict_testmode = {}

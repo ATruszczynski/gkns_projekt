@@ -1,9 +1,12 @@
 from players.player_rng import *
 from players.player_human import *
+from players.player_moves_heuristic import *
 from collections import *
 
 pl_dict = { "1": ["Człowiek", type(HumanPlayer)],
-            "2": ["Komputer losowy", type(PlayerRng)]}
+            "2": ["Komputer losowy", type(PlayerRng)],
+            "3": ["Komputer heurystyka ilości ruchów", type(PlayerMoveHeu)],
+            }
 
 # TODO zunifikować utility
 
@@ -19,44 +22,6 @@ def pick_option(opt_dictionary: dict):
         else:
             print("Niepoprawna opcja")
 
-def analyse_word(word:[str]) -> (bool, dict): # zwraca czy słowo ma powtórzenie
-    result = False
-    repetition = None
-    analysis_dict = {}
-
-    for hole_index in range(1, len(word)):
-        left_len = hole_index
-        right_len = len(word) - hole_index
-        len_to_analyse = min(left_len, right_len)
-
-        for l in range(1, len_to_analyse + 1):
-            dict_left = {}
-            dict_right = {}
-            for i in range(hole_index - l, hole_index):
-                letter = word[i]
-                if letter not in dict_left:
-                    dict_left[letter] = 1
-                else:
-                    dict_left[letter] += 1
-
-            for i in range(hole_index, hole_index + l):
-                letter = word[i]
-                if letter not in dict_right:
-                    dict_right[letter] = 1
-                else:
-                    dict_right[letter] += 1
-
-            dict_same = dict_left == dict_right
-            result = result or dict_same
-            if result and repetition is None:
-                repetition = (hole_index, l)
-
-            if hole_index not in analysis_dict:
-                analysis_dict[hole_index] = {}
-
-            analysis_dict[hole_index][l] = (dict_left, dict_right)
-
-    return result, repetition, analysis_dict
 
 def generate_alphabet(length: int, alphabet_base: [str]) -> [str]:
     generator = deque()
