@@ -1,9 +1,11 @@
 from players.player_rng import *
 from players.player_human import *
+from players.player_utc import *
 from collections import *
 
 pl_dict = { "1": ["Człowiek", type(HumanPlayer)],
-            "2": ["Komputer losowy", type(PlayerRng)]}
+            "2": ["Komputer losowy", type(PlayerRng)],
+            "3": ["Komputer UCT", type(PlayerUCT)]}
 
 # TODO zunifikować utility
 
