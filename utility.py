@@ -5,7 +5,7 @@ from collections import *
 pl_dict = { "1": ["Człowiek", type(HumanPlayer)],
             "2": ["Komputer losowy", type(PlayerRng)]}
 
-# TODO zunifikować utility
+
 
 def pick_option(opt_dictionary: dict):
     while True:

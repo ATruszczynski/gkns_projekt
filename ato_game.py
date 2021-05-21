@@ -95,7 +95,7 @@ class AtoGame:
         self.winner = -1
 
         while True:
-            # TODO log jest stringiem więc jego długość nie jest dobra
+
             if self.gamemode:
                 clear()
             if len(self.word) != 0:
