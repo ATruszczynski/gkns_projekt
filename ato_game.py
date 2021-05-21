@@ -1,7 +1,9 @@
 from utility import *
 from utility2 import *
 
-computer_player_list = [["Komputer losowy", PlayerRng], ["Komputer UCT", PlayerUCT]]
+computer_player_list = [["Komputer losowy", PlayerRng], ["Komputer UCT", PlayerUCT],
+                        ["Komputer heurystyka ilości ruchów", PlayerMoveHeu]
+                        ]
 
 pl_dict_gamemode = {"1": ["Człowiek", HumanPlayer]}
 pl_dict_testmode = {}
@@ -100,7 +102,7 @@ class AtoGame:
                     if not isinstance(self.p1, HumanPlayer) and self.delay:
                         _ = input("(enter żeby gracz wykonał ruch)")
 
-                move1 = self.p1.make_move_1(self.word, self.alphabet, word_analisys, self.separator, self.word_length)
+                move1 = self.p1.make_move_1(self.word, self.alphabet, word_analisys, self.separator)
 
                 # if self.gamemode:
                 #     print(ato_word_to_string(word=self.word, marker=move1, sep=self.separator))
@@ -115,7 +117,7 @@ class AtoGame:
                 if not isinstance(self.p2, HumanPlayer) and self.delay:
                     _ = input("(enter żeby gracz wykonał ruch)")
 
-            move2 = self.p2.make_move_2(self.word, self.alphabet, position=move1, word_analisys=word_analisys, separator=self.separator, word_length=self.word_length)
+            move2 = self.p2.make_move_2(self.word, self.alphabet, position=move1, word_analisys=word_analisys, separator=self.separator)
 
             self.log.append(move2)
             self.word.insert(move1, move2)

@@ -1,6 +1,9 @@
 from players.player_abs import *
 import random
 
+from players.player_abs import PlayerAbs
+
+
 class PlayerRng(PlayerAbs):
     def to_string(self):
         return "Gracz losowy"
