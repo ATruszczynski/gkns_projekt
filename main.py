@@ -21,6 +21,8 @@ EXIT = "GGG"
 
 state = MAIN_MENU
 
+random.seed(10011010)
+
 while True:
     # wybór trybu obsługi
     if state == MAIN_MENU:
@@ -98,10 +100,11 @@ while True:
         tester.run()
         clear()
         tester.print_results()
+        tester.save_results(history=True)
 
         odict = { "1": ["Przeprowadź testy jeszcze raz", TESTS_RUN],
                   "2": ["Przeprowadź nowe testy", TESTS_EMPTY],
-                  "3": ["Zapisz wyniki", TESTS_SAVE],
+                  # "3": ["Zapisz wyniki", TESTS_SAVE],
                   "9": ["Zmień tryb aplikacji", MAIN_MENU],
                   "0": ["Wyjdź z aplikacji", EXIT]}
         state = pick_option(odict)
