@@ -108,7 +108,7 @@ def play_one_game(node, alphabet: [str], word_length: int):
         used_nodes.append(node)
     winner = get_value_by_mcts(node, word_length, alphabet)
     if winner == used_nodes[0].Type:
-        score = 0
+        score = (len(used_nodes)-1) / (2 * word_length)
     else:
         score = 1
     for used_node in used_nodes:
