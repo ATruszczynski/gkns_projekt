@@ -13,6 +13,12 @@ def simulate_1(word_length, alphabet, word):
     game.alphabet = alphabet
     game.word = copy.deepcopy(word)
     word_analisys = {}
+    from utility import analyse_word
+    is_rep, game.repetition, word_analisys = analyse_word(game.word)
+    if is_rep:
+        return 1
+    elif len(game.word) == game.word_length:
+        return 2
     while True:
         if len(game.word) != 0:
             move1 = game.p1.make_move_1(self=game.p1, word=game.word, alphabet=game.alphabet, word_analisys=word_analisys, separator=game.separator, word_length=word_length)
@@ -92,6 +98,8 @@ def play_one_game(node, alphabet: [str], word_length: int):
     used_nodes = [node]
     first_visited = False
     while not first_visited:
+        if len(node.Word) >= word_length:
+            break
         (node, first_visited) = descend_by_uct(node, alphabet)
         used_nodes.append(node)
     winner = get_value_by_mcts(node, word_length, alphabet)
