@@ -100,6 +100,10 @@ def play_one_game(node, alphabet: [str], word_length: int):
     while not first_visited:
         if len(node.Word) >= word_length:
             break
+        from utility import analyse_word
+        is_rep, repetition, word_analisys = analyse_word(node.Word)
+        if is_rep:
+            break
         (node, first_visited) = descend_by_uct(node, alphabet)
         used_nodes.append(node)
     winner = get_value_by_mcts(node, word_length, alphabet)
