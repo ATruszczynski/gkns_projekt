@@ -43,7 +43,18 @@ class Node:
         self.Score += score
 
     def get_best_move(self):
+        best_child = None
+        for child in self.Children:
+            if best_child is None:
+                best_child = child
+                continue
+            if best_child.Plays == 0:
+                best_child = child
+                continue
+            if child.Plays != 0:
+                if child.Score / child.Plays > best_child.Score / best_child.Plays:
+                    best_child = child
         if self.Type == 2:
-            return self.get_best_child().Place
+            return best_child.Place
         else:
-            return self.get_best_child().Letter
+            return best_child.Letter
