@@ -52,7 +52,7 @@ while True:
 
     if state == GAME_READY:
         ato.play()
-        clear()
+        # clear()
         ato.print_result()
         print(short_sep)
 

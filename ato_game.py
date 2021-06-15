@@ -1,3 +1,5 @@
+import time
+
 from players.player_moves_heuristic import PlayerMoveHeu
 from players.player_utc import PlayerUCT
 from utility import *
@@ -94,13 +96,18 @@ class AtoGame:
         word_analisys = {}
         self.winner = -1
 
+        comp_only = not isinstance(self.p1, HumanPlayer) and not isinstance(self.p2, HumanPlayer)
+
+        clear()
+
         while True:
 
-            if self.gamemode:
+            if self.gamemode and not comp_only:
                 clear()
             if len(self.word) != 0:
                 if self.gamemode:
-                    print("Ruch gracza 1:")
+                    if not comp_only:
+                        print("Ruch gracza 1:")
                     if not isinstance(self.p1, HumanPlayer) and self.delay:
                         _ = input("(enter żeby gracz wykonał ruch)")
 
@@ -112,10 +119,14 @@ class AtoGame:
                 move1 = 0
 
             self.log.append(move1)
+            if self.gamemode and comp_only:
+                print("Stan gry po ruchu gracza 1: " + ato_word_to_string(self.word, marker=move1, sep=self.separator))
+                time.sleep(0.75)
 
             if self.gamemode:
-                clear()
-                print("Ruch gracza 2:")
+                if not comp_only:
+                    clear()
+                    print("Ruch gracza 2:")
                 if not isinstance(self.p2, HumanPlayer) and self.delay:
                     _ = input("(enter żeby gracz wykonał ruch)")
 
@@ -123,6 +134,9 @@ class AtoGame:
 
             self.log.append(move2)
             self.word.insert(move1, move2)
+            if self.gamemode and comp_only:
+                print("Stan gry po ruchu gracza 2: " + ato_word_to_string(self.word, sep=self.separator))
+                time.sleep(0.75)
 
             is_rep, self.repetition, word_analisys = analyse_word(self.word)
 
