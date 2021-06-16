@@ -6,7 +6,7 @@ class HumanPlayer(PlayerAbs):
     def to_string(self):
         return "Gracz człowiek"
 
-    def make_move_1(self, word: [str], alphabet: [str], word_analisys: dict, separator: str):
+    def make_move_1(self, word: [str], alphabet: [str], word_analisys: dict, separator: str, word_length: int):
         position = 0
         print("Aktualne słowo: " + ato_word_to_string(word, sep=separator))
         print(short_sep)
@@ -16,7 +16,7 @@ class HumanPlayer(PlayerAbs):
 
         return pos
 
-    def make_move_2(self, word: [str], alphabet: [str], position:int, word_analisys: dict, separator: str):
+    def make_move_2(self, word: [str], alphabet: [str], position:int, word_analisys: dict, separator: str, word_length: int):
         print("Aktualne słowo: " + ato_word_to_string(word, marker=position, sep=separator))
 
         while True:
