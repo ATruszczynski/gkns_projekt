@@ -1,7 +1,11 @@
+import time
+
+from players.player_moves_heuristic import PlayerMoveHeu
+from players.player_utc import PlayerUCT
 from utility import *
 from utility2 import *
 
-computer_player_list = [["Komputer losowy", PlayerRng],
+computer_player_list = [["Komputer losowy", PlayerRng], ["Komputer UCT", PlayerUCT],
                         ["Komputer heurystyka ilości ruchów", PlayerMoveHeu]
                         ]
 
@@ -92,17 +96,22 @@ class AtoGame:
         word_analisys = {}
         self.winner = -1
 
+        comp_only = not isinstance(self.p1, HumanPlayer) and not isinstance(self.p2, HumanPlayer)
+
+        clear()
+
         while True:
-            # TODO log jest stringiem więc jego długość nie jest dobra
-            if self.gamemode:
+
+            if self.gamemode and not comp_only:
                 clear()
             if len(self.word) != 0:
                 if self.gamemode:
-                    print("Ruch gracza 1:")
+                    if not comp_only:
+                        print("Ruch gracza 1:")
                     if not isinstance(self.p1, HumanPlayer) and self.delay:
                         _ = input("(enter żeby gracz wykonał ruch)")
 
-                move1 = self.p1.make_move_1(self.word, self.alphabet, word_analisys, self.separator)
+                move1 = self.p1.make_move_1(self.word, self.alphabet, word_analisys, self.separator, word_length=self.word_length)
 
                 # if self.gamemode:
                 #     print(ato_word_to_string(word=self.word, marker=move1, sep=self.separator))
@@ -110,17 +119,24 @@ class AtoGame:
                 move1 = 0
 
             self.log.append(move1)
+            if self.gamemode and comp_only:
+                print("Stan gry po ruchu gracza 1: " + ato_word_to_string(self.word, marker=move1, sep=self.separator))
+                time.sleep(0.75)
 
             if self.gamemode:
-                clear()
-                print("Ruch gracza 2:")
+                if not comp_only:
+                    clear()
+                    print("Ruch gracza 2:")
                 if not isinstance(self.p2, HumanPlayer) and self.delay:
                     _ = input("(enter żeby gracz wykonał ruch)")
 
-            move2 = self.p2.make_move_2(self.word, self.alphabet, position=move1, word_analisys=word_analisys, separator=self.separator)
+            move2 = self.p2.make_move_2(self.word, self.alphabet, position=move1, word_analisys=word_analisys, separator=self.separator, word_length=self.word_length)
 
             self.log.append(move2)
             self.word.insert(move1, move2)
+            if self.gamemode and comp_only:
+                print("Stan gry po ruchu gracza 2: " + ato_word_to_string(self.word, sep=self.separator))
+                time.sleep(0.75)
 
             is_rep, self.repetition, word_analisys = analyse_word(self.word)
 

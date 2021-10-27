@@ -1,14 +1,11 @@
 from players.player_rng import *
 from players.player_human import *
-from players.player_moves_heuristic import *
 from collections import *
 
 pl_dict = { "1": ["Człowiek", type(HumanPlayer)],
-            "2": ["Komputer losowy", type(PlayerRng)],
-            "3": ["Komputer heurystyka ilości ruchów", type(PlayerMoveHeu)],
-            }
+            "2": ["Komputer losowy", type(PlayerRng)]}
 
-# TODO zunifikować utility
+
 
 def pick_option(opt_dictionary: dict):
     while True:

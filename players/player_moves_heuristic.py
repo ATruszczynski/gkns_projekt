@@ -4,7 +4,7 @@ from utility2 import analyse_word
 
 class PlayerMoveHeu(PlayerAbs):
     def to_string(self):
-        return "Gracz z heurystyką ilości ruchów"
+        return "Gracz z heur"
 
     def __build_rating_for_move1(self, word: [str], alphabet: [str]):
         move_rating = []
@@ -18,12 +18,12 @@ class PlayerMoveHeu(PlayerAbs):
             move_rating.append(numer_of_possible_moves)
         return move_rating
 
-    def make_move_1(self, word: [str], alphabet: [str], word_analisys: dict, separator: str):
+    def make_move_1(self, word: [str], alphabet: [str], word_analisys: dict, separator: str, word_length: int):
         move_rating = self.__build_rating_for_move1(word, alphabet)
         best_move = move_rating.index(max(move_rating))
         return best_move
 
-    def make_move_2(self, word: [str], alphabet: [str], position: int, word_analisys: dict, separator: str):
+    def make_move_2(self, word: [str], alphabet: [str], position: int, word_analisys: dict, separator: str, word_length: int):
         best_move1_scores = []
         for move2 in alphabet:
             new_word = word[:]
